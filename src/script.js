@@ -7,9 +7,14 @@ import * as dat from 'dat.gui'
 /**
  * Debug
  */
-const gui = new dat.GUI()
+const gui = new dat.GUI({ closed: true, width: 400 })
+gui.hide()
+
 const parameters = {
-    color: 0xda1fe6
+    color: 0xda1fe6,
+    spin: () => {
+        gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 })
+    }
 }
 
 /**
@@ -60,6 +65,9 @@ gui
     .onChange(() => {
         material.color.set(parameters.color)
     })
+gui
+    .add(parameters, 'spin')
+    .name('round and round')
 
 /**
  * Sizes
