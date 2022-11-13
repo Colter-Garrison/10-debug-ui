@@ -8,6 +8,9 @@ import * as dat from 'dat.gui'
  * Debug
  */
 const gui = new dat.GUI()
+const parameters = {
+    color: 0xda1fe6
+}
 
 /**
  * Base
@@ -22,14 +25,41 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const material = new THREE.MeshBasicMaterial({ color: parameters.color })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
 //Debug
-gui.add(mesh.position, 'x').min(-3).max(3).step(0.01)
-gui.add(mesh.position, 'y').min(-3).max(3).step(0.01)
-gui.add(mesh.position, 'z').min(-3).max(3).step(0.01)
+gui
+    .add(mesh.position, 'x')
+    .min(-3)
+    .max(3)
+    .step(0.01)
+    .name('side to side')
+gui
+    .add(mesh.position, 'y')
+    .min(-3)
+    .max(3)
+    .step(0.01)
+    .name('up and down')
+gui
+    .add(mesh.position, 'z')
+    .min(-3)
+    .max(3)
+    .step(0.01)
+    .name("in 'n' out")
+gui
+    .add(mesh, 'visible')
+    .name('ghost mode')
+gui
+    .add(material, 'wireframe')
+    .name('skeleton')
+gui
+    .addColor(parameters, 'color')
+    .name('colorize')
+    .onChange(() => {
+        material.color.set(parameters.color)
+    })
 
 /**
  * Sizes
